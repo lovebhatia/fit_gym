@@ -4,6 +4,7 @@ package com.gym.fit.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,6 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("api/workout")
-@AllArgsConstructor
 public class WorkoutController {
 	
 	@Autowired
@@ -43,6 +43,10 @@ public class WorkoutController {
 	
 	@Autowired
 	private ExerciseRepository exerciseRepository;
+	
+	@Value("${build.version}")
+	private String buildVersion;
+	
 	
 	
 	@PostMapping("/save/{id}")
@@ -74,6 +78,11 @@ public class WorkoutController {
 
 	        return ResponseEntity.status(HttpStatus.OK).body(exercises);
 	    }
+	 
+	 @GetMapping("/build-info")
+	 public ResponseEntity<?> getBuildInfo() {
+		 return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+	 }
 	
 	/*
 	@GetMapping("/exercise/{id}")
