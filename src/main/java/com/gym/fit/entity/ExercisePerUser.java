@@ -20,7 +20,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ExercisePerWorkoutPerUser {
+public class ExercisePerUser {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -29,14 +30,9 @@ public class ExercisePerWorkoutPerUser {
 	@JoinColumn(name = "user_id")
 	private GymUser gymUser;
 	
-	@ManyToOne
-	@JoinColumn(name = "workout_per_user_id")
-	private WorkoutPerUser workoutPerUser;
-	
-	private String exeriseName;
+	private String exerciseName;
 	
 	@CreationTimestamp
     private LocalDateTime createdAt;
-
 
 }

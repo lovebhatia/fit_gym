@@ -22,8 +22,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ExerciseController {
 	
-	@Autowired
-	private ExerciseRepository exerciseRepository;
+
 	
 	@Autowired
 	private CustomWorkoutRepository customWorkoutRepository;

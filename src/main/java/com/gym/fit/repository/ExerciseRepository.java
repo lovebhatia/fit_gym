@@ -10,5 +10,5 @@ import com.gym.fit.entity.Workout;
 
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
-		//List<Exercise> findByWorkout(Workout workout);
+		List<Exercise> findByWorkouts(Workout workout);
 }

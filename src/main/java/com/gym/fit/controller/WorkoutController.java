@@ -84,14 +84,14 @@ public class WorkoutController {
 		 return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
 	 }
 	
-	/*
+	
 	@GetMapping("/exercise/{id}")
 	public ResponseEntity<List<Exercise>> getExercisePerWorkout(@PathVariable(value = "id") Long workoutId) {
 		Workout workout = workoutRepository.findById(workoutId).
 				orElseThrow(() -> new RuntimeException("Workout Not found"));
-		List<Exercise> listExercise = exerciseRepository.findByWorkout(workout);
+		List<Exercise> listExercise = exerciseRepository.findByWorkouts(workout);
 		return new ResponseEntity<List<Exercise>>(listExercise, HttpStatus.OK);	
 	}
-	*/
+	
 	
 }

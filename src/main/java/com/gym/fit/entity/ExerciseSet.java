@@ -2,6 +2,8 @@ package com.gym.fit.entity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class ExeriseSet {
+public class ExerciseSet {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,9 +31,19 @@ public class ExeriseSet {
 	@JoinColumn(name = "exerise_per_workout_per_user_id")
 	private ExercisePerWorkoutPerUser exercisePerWorkoutPerUser;
 	
+	@ManyToOne
+	@JoinColumn(name = "exerise_per_user_id")
+	private ExercisePerUser exercisePerUser;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private GymUser gymUser;
+	
 	private Integer reps;
 	private Double Weight;
-	@Column(name = "created_At", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private String exerciseName;
+	private int set;
+	@CreationTimestamp
 	private Date createdTime;
 	
 }

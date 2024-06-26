@@ -32,6 +32,7 @@ public class WorkoutPerUser {
 	private GymUser gymUser;
 	
 	private String workoutName;
+	
 	@CreationTimestamp
     private LocalDateTime createdAt;
 
