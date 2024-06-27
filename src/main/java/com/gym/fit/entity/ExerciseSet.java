@@ -40,7 +40,7 @@ public class ExerciseSet {
 	private GymUser gymUser;
 	
 	private Integer reps;
-	private Double Weight;
+	private Double weight;
 	private String exerciseName;
 	private int set;
 	@CreationTimestamp
