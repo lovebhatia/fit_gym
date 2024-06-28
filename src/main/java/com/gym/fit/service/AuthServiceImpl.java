@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.gym.fit.dto.JwtAuthResponse;
 import com.gym.fit.dto.LoginDto;
 import com.gym.fit.entity.GymRefreshToken;
+import com.gym.fit.entity.GymUser;
 import com.gym.fit.repository.GymRefreshTokenRepository;
 import com.gym.fit.repository.GymUserRepository;
 import com.gym.fit.securityConfig.CustomUserDetailsService;
@@ -56,7 +57,9 @@ public class AuthServiceImpl implements AuthService {
 		jwtAuthResponse.setAccessToken(token);
 		jwtAuthResponse.setRefreshToken(refreshToken);
 		String usernameOrEmail = userdetails.getUsername();
-		gymRefreshToken.setGymUser(gymUserRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail).get());
+		GymUser gymUser = gymUserRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail).get();
+		gymRefreshToken.setGymUser(gymUser);
+		jwtAuthResponse.setUserId(gymUser.getId());
 		gymRefreshToken.setRefreshToken(refreshToken);
 		gymRefreshTokenRepository.save(gymRefreshToken);
 		return jwtAuthResponse;

@@ -6,6 +6,6 @@ import lombok.Data;
 public class ExerciseRecordDTO {
 	 private Integer reps;
 	 private Double weight;
-	 private int index;
+	 private int set;
 
 }
