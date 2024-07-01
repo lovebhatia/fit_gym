@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -34,8 +36,8 @@ public class ExercisePerUser {
 	@CreationTimestamp
     private LocalDateTime createdAt;
 
-	@OneToMany(mappedBy = "exercisePerUser", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	@JsonBackReference
+	@OneToMany(mappedBy = "exercisePerUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<ExerciseSetRecord> exerciseSetRecords;
 
 }

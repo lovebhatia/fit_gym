@@ -10,6 +10,7 @@ import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +32,7 @@ public class ExerciseSetRecord {
 
     @ManyToOne
     @JoinColumn(name = "exercise_per_user_id", nullable = false)
+    @JsonBackReference
     private ExercisePerUser exercisePerUser;
 
     private Integer reps;

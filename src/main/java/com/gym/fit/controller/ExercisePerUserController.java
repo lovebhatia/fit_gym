@@ -30,8 +30,9 @@ public class ExercisePerUserController {
 			@RequestParam Long userId,
 			@RequestParam String exerciseName,
 			@RequestParam LocalDate date) {
-		System.out.println("in the methodß");
+		System.out.println("in the method");
 		List<ExercisePerUser> exercises = exercisePerUserService.getExercisePerUserByUserIdAndExerciseNameAndDate(userId, exerciseName, date);
+		
 		return ResponseEntity.ok(exercises);
 	}
 
