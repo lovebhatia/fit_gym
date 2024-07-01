@@ -9,12 +9,12 @@ import lombok.Builder;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.Id;
 
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
@@ -30,7 +30,7 @@ public class ExerciseSetRecord {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "exercise_per_user_id")
+    @JoinColumn(name = "exercise_per_user_id", nullable = false)
     private ExercisePerUser exercisePerUser;
 
     private Integer reps;

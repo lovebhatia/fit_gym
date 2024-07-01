@@ -1,5 +1,8 @@
 package com.gym.fit.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,5 +54,14 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
 		exerciseRecordSetRepository.saveAll(exerciseRecords);
 		return savedExercisePerUser;
 	}
+
+	@Override
+	public List<ExercisePerUser> getExercisePerUserByUserIdAndExerciseNameAndDate(Long userId, String exerciseName, LocalDate date) {
+		LocalDateTime startOfDay = date.atStartOfDay();
+		LocalDateTime endOfDay = date.atTime(LocalTime.MAX);
+		return exercisePerUserRepository.findByGymUserIdAndExerciseNameAndCreatedAtBetween(userId, exerciseName, startOfDay, endOfDay);
+
+	}
+
 
 }
