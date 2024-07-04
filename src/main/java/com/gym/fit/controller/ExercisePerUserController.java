@@ -14,18 +14,18 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/exercise-per-user")
 @AllArgsConstructor
 public class ExercisePerUserController {
 	
 	private ExercisePerUserService exercisePerUserService;
 	
-	@PostMapping("/save-exercise-per-user")
+	@PostMapping
 	public ResponseEntity<ExercisePerUser> createExercisePerUser(@RequestBody ExercisePerUserDTO exercisePerUserDTO) {
 		return ResponseEntity.ok(exercisePerUserService.saveExercisePerUser(exercisePerUserDTO));
 	}
 
-	@GetMapping("/exercise-per-user")
+	@GetMapping
 	public ResponseEntity<List<ExercisePerUser>> getExercisePerUser(
 			@RequestParam Long userId,
 			@RequestParam String exerciseName,
@@ -35,5 +35,11 @@ public class ExercisePerUserController {
 		
 		return ResponseEntity.ok(exercises);
 	}
+	
+	@DeleteMapping
+    public ResponseEntity<String> deleteExerciseRecords(@RequestParam LocalDate date, @RequestParam String exerciseName, @RequestParam Long userId) {
+		exercisePerUserService.deleteExerciseRecordsByDateAndExerciseNameAndUserId(date, exerciseName, userId);
+        return ResponseEntity.ok("Exercise records deleted successfully.");
+    }
 
 }

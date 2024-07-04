@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gym.fit.dto.ExercisePerUserDTO;
 import com.gym.fit.entity.ExercisePerUser;
@@ -16,6 +17,7 @@ import com.gym.fit.entity.ExerciseSetRecord;
 import com.gym.fit.entity.GymUser;
 import com.gym.fit.repository.ExercisePerUserRepository;
 import com.gym.fit.repository.ExerciseRecordSetRepository;
+import com.gym.fit.repository.ExerciseSetRecordRepository;
 import com.gym.fit.repository.GymUserRepository;
 
 @Service
@@ -29,6 +31,9 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
 	
 	@Autowired
 	ExerciseRecordSetRepository exerciseRecordSetRepository;
+	
+	@Autowired
+	ExerciseSetRecordRepository exerciseSetRecordRepository;
 
 	@Override
 	public ExercisePerUser saveExercisePerUser(ExercisePerUserDTO exercisePerUserDTO) {
@@ -62,6 +67,24 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
 		return exercisePerUserRepository.findByGymUserIdAndExerciseNameAndCreatedAtBetween(userId, exerciseName, startOfDay, endOfDay);
 
 	}
+
+
+	@Override
+	@Transactional
+	public void deleteExerciseRecordsByDateAndExerciseNameAndUserId(LocalDate date, String exerciseName,
+			Long userId) {
+		System.out.println(date+"--"+exerciseName+"--"+userId);
+		List<ExercisePerUser> exercisePerUsers = exercisePerUserRepository.
+				findByCreatedAtAndExerciseNameAndUserId(date, exerciseName, userId);
+        
+        for (ExercisePerUser exercisePerUser : exercisePerUsers) {
+        	System.out.println("in exercise per user");
+            exerciseSetRecordRepository.deleteByExercisePerUser(exercisePerUser);
+            exercisePerUserRepository.delete(exercisePerUser);
+        }
+    }
+		
+	
 
 
 }
