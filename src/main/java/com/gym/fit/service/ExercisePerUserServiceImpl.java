@@ -44,6 +44,8 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
 				.gymUser(gymUser)
 				.exerciseName(exercisePerUserDTO.getExerciseName())
 				.build();
+		System.out.println(exercisePerUserDTO.getLocalDate());
+		deleteExerciseRecordsByDateAndExerciseNameAndUserId(exercisePerUserDTO.getLocalDate(), exercisePerUserDTO.getExerciseName(), exercisePerUserDTO.getUserId());
 		ExercisePerUser savedExercisePerUser = exercisePerUserRepository.save(exercisePerUser);
 		
 		List<ExerciseSetRecord> exerciseRecords = exercisePerUserDTO.getRecords().stream().map(recordDTO -> {
