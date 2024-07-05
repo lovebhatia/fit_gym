@@ -21,5 +21,5 @@ public class ExercisePerUserDTO {
     private String exerciseName;
     @OneToMany(mappedBy = "exerciseSet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ExerciseSetRecord> records;
-    private LocalDate localDate;
+    private LocalDate date;
 }

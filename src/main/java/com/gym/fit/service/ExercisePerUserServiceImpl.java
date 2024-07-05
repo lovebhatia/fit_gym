@@ -36,6 +36,7 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
 	ExerciseSetRecordRepository exerciseSetRecordRepository;
 
 	@Override
+	@Transactional
 	public ExercisePerUser saveExercisePerUser(ExercisePerUserDTO exercisePerUserDTO) {
 		System.out.println("in save exercise per user --> "+exercisePerUserDTO.getUserId());
 		GymUser gymUser = gymUserRepository.findById(exercisePerUserDTO.getUserId())
@@ -44,8 +45,8 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
 				.gymUser(gymUser)
 				.exerciseName(exercisePerUserDTO.getExerciseName())
 				.build();
-		System.out.println(exercisePerUserDTO.getLocalDate());
-		deleteExerciseRecordsByDateAndExerciseNameAndUserId(exercisePerUserDTO.getLocalDate(), exercisePerUserDTO.getExerciseName(), exercisePerUserDTO.getUserId());
+		System.out.println(exercisePerUserDTO.getDate());
+		deleteExerciseRecordsByDateAndExerciseNameAndUserId(exercisePerUserDTO.getDate(), exercisePerUserDTO.getExerciseName(), exercisePerUserDTO.getUserId());
 		ExercisePerUser savedExercisePerUser = exercisePerUserRepository.save(exercisePerUser);
 		
 		List<ExerciseSetRecord> exerciseRecords = exercisePerUserDTO.getRecords().stream().map(recordDTO -> {
@@ -71,7 +72,7 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
 	}
 
 
-	@Override
+	
 	@Transactional
 	public void deleteExerciseRecordsByDateAndExerciseNameAndUserId(LocalDate date, String exerciseName,
 			Long userId) {
