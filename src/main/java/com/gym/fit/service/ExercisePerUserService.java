@@ -21,6 +21,8 @@ public interface ExercisePerUserService   {
 	@Transactional
 	 void deleteExerciseRecordsByDateAndExerciseNameAndUserId(LocalDate date, String exerciseName, Long userId);
 
+	List<ExercisePerUser> getExerciseHistory(String exerciseName, Long userId);
+
 
 
 }

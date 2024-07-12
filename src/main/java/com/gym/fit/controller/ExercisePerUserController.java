@@ -42,4 +42,10 @@ public class ExercisePerUserController {
         return ResponseEntity.ok("Exercise records deleted successfully.");
     }
 
+	@GetMapping("/history")
+	public ResponseEntity<List<ExercisePerUser>> getExerciseHistory(@RequestParam String exerciseName, @RequestParam Long userId) {
+		List<ExercisePerUser> exerciseHistory = exercisePerUserService.getExerciseHistory(exerciseName, userId);
+		return ResponseEntity.ok(exerciseHistory);
+	}
+
 }

@@ -3,10 +3,13 @@ package com.gym.fit.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,6 +89,17 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
             exercisePerUserRepository.delete(exercisePerUser);
         }
     }
+
+	public List<ExercisePerUser> getExerciseHistory(String exerciseName, Long userId) {
+		Pageable pageable = PageRequest.of(0, 2); // Limiting to the last two distinct dates
+		List<LocalDate> lastTwoDates = exercisePerUserRepository.findLastTwoDistinctDates(exerciseName, userId, pageable);
+
+		if (lastTwoDates.isEmpty()) {
+			return new ArrayList<>();
+		}
+
+		return exercisePerUserRepository.findByExerciseNameAndUserIdAndDates(exerciseName, userId, lastTwoDates);
+	}
 		
 	
 

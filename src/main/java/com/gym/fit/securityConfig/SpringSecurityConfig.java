@@ -52,7 +52,7 @@ public class SpringSecurityConfig {
                 	//authorize.requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN");
                 	System.out.println("in auhtorize");
                 	authorize.requestMatchers(hasIpAddressMatcher+"/**").permitAll();
-                    authorize.requestMatchers("/api/auth/**").permitAll();
+                    authorize.requestMatchers("/api/**").permitAll();
                     authorize.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
                     authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     
