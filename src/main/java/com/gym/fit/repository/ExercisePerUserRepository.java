@@ -26,11 +26,11 @@ public interface ExercisePerUserRepository extends JpaRepository<ExercisePerUser
     @Query("SELECT e FROM ExercisePerUser e WHERE FUNCTION('DATE', e.createdAt) = :date AND e.exerciseName = :exerciseName AND e.gymUser.id = :userId")
     List<ExercisePerUser> findByCreatedAtAndExerciseNameAndUserId(@Param("date") LocalDate date, @Param("exerciseName") String exerciseName, @Param("userId") Long userId);
 
-    @Query("SELECT DISTINCT FUNCTION('DATE', e.createdAt) FROM ExercisePerUser e WHERE e.exerciseName = :exerciseName AND e.gymUser.id = :userId ORDER BY FUNCTION('DATE', e.createdAt) DESC")
-    List<LocalDate> findLastTwoDistinctDates(@Param("exerciseName") String exerciseName, @Param("userId") Long userId, Pageable pageable);
+    @Query(value = "SELECT DISTINCT DATE(created_at) FROM exercise_per_user WHERE exercise_name = :exerciseName AND user_id = :userId ORDER BY DATE(created_at) DESC LIMIT 2", nativeQuery = true)
+    List<java.sql.Date> findLastTwoDistinctDates(@Param("exerciseName") String exerciseName, @Param("userId") Long userId);
 
-    @Query("SELECT e FROM ExercisePerUser e WHERE DATE(e.createdAt) IN :dates AND e.exerciseName = :exerciseName AND e.gymUser.id = :userId")
-    List<ExercisePerUser> findByExerciseNameAndUserIdAndDates(@Param("exerciseName") String exerciseName, @Param("userId") Long userId, @Param("dates") List<LocalDate> dates);
+    @Query("SELECT e FROM ExercisePerUser e JOIN FETCH e.exerciseSetRecords WHERE FUNCTION('DATE', e.createdAt) IN :dates AND e.exerciseName = :exerciseName AND e.gymUser.id = :userId ORDER BY e.createdAt DESC")
+    List<ExercisePerUser> findByExerciseNameAndUserIdAndDates(@Param("exerciseName") String exerciseName, @Param("userId") Long userId, @Param("dates") List<java.sql.Date> dates);
 
 
 
