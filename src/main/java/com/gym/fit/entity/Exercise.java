@@ -38,6 +38,7 @@ public class Exercise {
 	private String exerciseDescription;
 	private String exerciseDuration;
 	private String claoriesBurned;
+	private String imageName;
 	@ManyToMany(mappedBy = "exercises")
 	@JsonBackReference
 	private List<Workout> workouts = new ArrayList<Workout>();
