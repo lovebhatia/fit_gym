@@ -2,6 +2,8 @@ package com.gym.fit.entity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,12 +29,8 @@ public class BMIRecord {
 	@ManyToOne
     @JoinColumn(name = "user_id")
     private GymUser user;
-	@Column(name = "created_At", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@CreationTimestamp
     private Date date;
-    private String sex;
-    private Double height;
-    private Double weight;
-    private Integer age;
     private Double bmi;
 
 }

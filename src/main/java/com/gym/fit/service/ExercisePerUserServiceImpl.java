@@ -92,7 +92,7 @@ public class ExercisePerUserServiceImpl implements ExercisePerUserService {
 
 	public List<ExercisePerUser> getExerciseHistory(String exerciseName, Long userId) {
 		Pageable pageable = PageRequest.of(0, 2); // Limiting to the last two distinct dates
-        List<java.sql.Date> lastTwoDates = exercisePerUserRepository.findLastTwoDistinctDates(exerciseName, userId);
+        List<java.sql.Date> lastTwoDates = exercisePerUserRepository.findLastTwoDistinctDatesExcludingToday(exerciseName, userId);
 
 		if (lastTwoDates.isEmpty()) {
 			return new ArrayList<>();

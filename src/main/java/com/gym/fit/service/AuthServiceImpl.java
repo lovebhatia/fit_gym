@@ -7,12 +7,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.gym.fit.dto.JwtAuthResponse;
 import com.gym.fit.dto.LoginDto;
 import com.gym.fit.entity.GymRefreshToken;
 import com.gym.fit.entity.GymUser;
+import com.gym.fit.exception.CustomException;
 import com.gym.fit.repository.GymRefreshTokenRepository;
 import com.gym.fit.repository.GymUserRepository;
 import com.gym.fit.securityConfig.CustomUserDetailsService;
@@ -43,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
 		System.out.println("in login dto");
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		}catch (BadCredentialsException e) {
-			throw new RuntimeException("Bad credentials provided");
+			throw new CustomException("Bad User Credentials", "USER_NOT_FOUND");
 		}
 		catch (Exception e) {
 			System.out.println("Exception" +e.toString());
