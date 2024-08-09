@@ -34,11 +34,22 @@ public class CustomUserDetailsService implements UserDetailsService {
 		System.out.println("in username");
 		GymUser gymUser = gymUserRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail)
 				.orElseThrow(() -> new UsernameNotFoundException("User not exists by Username or email"));
-		System.out.println("in - 1");
 		Set<GrantedAuthority> authorities = gymUser.getGymRoles().stream()
                 .map((role) -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toSet());
-		System.out.println("in - 2");
+		return new User(
+                usernameOrEmail,
+                gymUser.getPassword(),
+                authorities
+        );
+	}
+	public UserDetails loadUserByUsernameGoogle(String usernameOrEmail) throws UsernameNotFoundException {
+		System.out.println("in username");
+		GymUser gymUser = gymUserRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail)
+				.orElseThrow(() -> new UsernameNotFoundException("User not exists by Username or email"));
+		Set<GrantedAuthority> authorities = gymUser.getGymRoles().stream()
+                .map((role) -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
 		return new User(
                 usernameOrEmail,
                 gymUser.getPassword(),

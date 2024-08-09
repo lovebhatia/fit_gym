@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginGoogleDto {
+	private String username;
 	private String email;
-	private String displayName;
 	private boolean loginWithGoogle;
+	private String defaultPassword;
 }
