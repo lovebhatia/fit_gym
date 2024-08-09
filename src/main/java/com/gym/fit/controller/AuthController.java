@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gym.fit.dto.GymUserDto;
 import com.gym.fit.dto.JwtAuthResponse;
 import com.gym.fit.dto.LoginDto;
+import com.gym.fit.dto.LoginGoogleDto;
 import com.gym.fit.dto.RefreshAccessTokenRequest;
 import com.gym.fit.entity.GymRoles;
 import com.gym.fit.repository.GymRoleRepository;
@@ -36,6 +37,14 @@ public class AuthController {
 		System.out.println("in login api");
 		return new ResponseEntity<JwtAuthResponse>(jwtAuthResponse, HttpStatus.OK);
 	}
+	
+	@PostMapping("/login-with-google")
+	public ResponseEntity<JwtAuthResponse> loginWithGoogle(@RequestBody LoginGoogleDto loginGoogleDto) {
+		JwtAuthResponse jwtAuthResponse = authService.loginwithGoogleDto(loginGoogleDto);
+		System.out.println("in login api");
+		return new ResponseEntity<JwtAuthResponse>(jwtAuthResponse, HttpStatus.OK);
+	}
+	
 	
 	@PostMapping("/register")
 	public ResponseEntity<?> saveUser(@RequestBody GymUserDto user) throws Exception {

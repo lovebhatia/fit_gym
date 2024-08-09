@@ -19,6 +19,7 @@ public class GlobalExceptionHandler {
                 status = HttpStatus.UNAUTHORIZED;
                 break;
             default:
+            	
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
         return ResponseEntity.status(status).body(ex.getMessage());

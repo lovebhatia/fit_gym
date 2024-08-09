@@ -10,9 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.gym.fit.dto.GymUserDto;
 import com.gym.fit.dto.JwtAuthResponse;
 import com.gym.fit.dto.LoginDto;
+import com.gym.fit.dto.LoginGoogleDto;
 import com.gym.fit.entity.GymRefreshToken;
+import com.gym.fit.entity.GymRoles;
 import com.gym.fit.entity.GymUser;
 import com.gym.fit.exception.CustomException;
 import com.gym.fit.repository.GymRefreshTokenRepository;
@@ -64,6 +67,40 @@ public class AuthServiceImpl implements AuthService {
 		jwtAuthResponse.setUserId(gymUser.getId());
 		gymRefreshToken.setRefreshToken(refreshToken);
 		gymRefreshTokenRepository.save(gymRefreshToken);
+		return jwtAuthResponse;
+	}
+	
+	@Override
+	public JwtAuthResponse loginwithGoogleDto(LoginGoogleDto loginGoogleDto) {
+		
+		 UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginGoogleDto.getEmail());
+		    if (userDetails == null) {
+		    	GymUser newUser = new GymUser();
+		    	newUser.setUsername(newUser.getUsername());
+		   		newUser.setEmail(newUser.getEmail());
+		   		newUser.setMobileNumber(newUser.getMobileNumber());
+		   		GymRoles gymRoles = new GymRoles();
+		   		gymRoles.setName("ROLE_USER");
+	    		gymUserRepository.save(newUser);
+		    }
+		    
+		UserDetails userDetailsafterRegistration = customUserDetailsService.loadUserByUsername(loginGoogleDto.getEmail());
+		
+		String token = jwtTokenProvider.generateToken(userDetailsafterRegistration);
+		String refreshToken = jwtTokenProvider.generateRefreshToken(userDetailsafterRegistration);
+		
+		JwtAuthResponse jwtAuthResponse = new JwtAuthResponse();
+		jwtAuthResponse.setAccessToken(token);
+		jwtAuthResponse.setRefreshToken(refreshToken);
+		
+		GymRefreshToken gymRefreshToken = new GymRefreshToken();
+		String usernameOrEmail = userDetailsafterRegistration.getUsername();
+		GymUser gymUser = gymUserRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail).get();
+		gymRefreshToken.setGymUser(gymUser);
+		jwtAuthResponse.setUserId(gymUser.getId());
+		gymRefreshToken.setRefreshToken(refreshToken);
+		gymRefreshTokenRepository.save(gymRefreshToken);
+		    
 		return jwtAuthResponse;
 	}
 }
