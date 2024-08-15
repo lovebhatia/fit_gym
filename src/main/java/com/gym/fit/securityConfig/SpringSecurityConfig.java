@@ -51,6 +51,7 @@ public class SpringSecurityConfig {
 //                    authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll();
                 	//authorize.requestMatchers(HttpMethod.POST, "/api/**").hasRole("ADMIN");
                 	System.out.println("in auhtorize");
+                    authorize.requestMatchers("/favicon.ico").permitAll();
                 	authorize.requestMatchers(hasIpAddressMatcher+"/**").permitAll();
                     authorize.requestMatchers("/api/**").permitAll();
                     authorize.requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll();
