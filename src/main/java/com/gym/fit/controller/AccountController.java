@@ -22,7 +22,8 @@ public class AccountController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteAccount(@RequestParam("userId") Long userId) {
+    public ResponseEntity<String> deleteAccount() {
+        Long userId = (long) 8;
         boolean isDeleted = accountService.deleteAccount(userId);
         if (isDeleted) {
             return ResponseEntity.ok("Account deleted successfully.");
