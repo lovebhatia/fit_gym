@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gym.fit.service.AccountService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/account")
@@ -21,7 +24,8 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @DeleteMapping("/delete")
+    
+    @PostMapping("/delete")
     public ResponseEntity<String> deleteAccount() {
         Long userId = (long) 8;
         boolean isDeleted = accountService.deleteAccount(userId);
