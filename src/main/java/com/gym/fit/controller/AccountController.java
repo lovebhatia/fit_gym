@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gym.fit.service.AccountService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -25,7 +27,8 @@ public class AccountController {
     }
 
     
-    @PostMapping("/delete")
+    
+    @GetMapping("/delete")
     public ResponseEntity<String> deleteAccount() {
         Long userId = (long) 8;
         boolean isDeleted = accountService.deleteAccount(userId);
