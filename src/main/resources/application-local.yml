@@ -15,37 +15,16 @@ server:
 spring:
   application:
     name: gymfitnew
-  cloud:
-    gcp:
-      sql:
-        database-name: gym_fit
-        instance-connection-name: midyear-courage-427209-f3:asia-south2:gymfitdb
-      appengine:
-        # This is optional and depends on your use case
-        automatic-scaling:
-          min-instances: 1
-          max-instances: 10
-        manual-scaling:
-          instances: 3
   datasource:
-    password: Terminator@123
+    url: jdbc:postgresql://localhost:5432/gym_fit?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    password: postgres
     username: postgres
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 5
-      idle-timeout: 30000
-      max-lifetime: 1800000
-      connection-timeout: 30000
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-  logging:
-  level:
-    org.springframework.orm.jpa: DEBUG
-    org.hibernate: DEBUG
 build:
-   version: 1
+  version: 1
 management:
   endpoints:
     web:

@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,12 +31,13 @@ public class AuthController {
 	private CustomUserDetailsService customUserDetailsService;
 	private GymRoleRepository gymRoleRepository;
 	private GymRefreshTokenService gymRefreshTokenService;
-	
+
 	@PostMapping("/login")
-	public ResponseEntity<JwtAuthResponse> login(@RequestBody LoginDto loginDto) {
-		JwtAuthResponse jwtAuthResponse = authService.login(loginDto);
-		System.out.println("in login api");
-		return new ResponseEntity<JwtAuthResponse>(jwtAuthResponse, HttpStatus.OK);
+	public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+		// Call the login method from the service layer
+		ResponseEntity<?> response = authService.login(loginDto);
+		// Return the response from the service directly
+		return response;
 	}
 	
 	@PostMapping("/login-with-google")

@@ -1,0 +1,4 @@
+cron:
+- description: "Keep instance alive"
+  url: /health
+  schedule: every 2 minutes
