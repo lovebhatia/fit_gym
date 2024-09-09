@@ -10,6 +10,8 @@ import com.gym.fit.entity.GymUser;
 @Repository
 public interface GymUserRepository extends JpaRepository<GymUser, Long> {
     Optional<GymUser> findByUsernameOrEmail(String username, String email);
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 
 
 }

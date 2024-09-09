@@ -19,6 +19,12 @@ public class GlobalExceptionHandler {
             case "INVALID_TOKEN":
                 status = HttpStatus.UNAUTHORIZED;
                 break;
+            case "USER_ALREADY_EXISTS":
+                status = HttpStatus.CONFLICT;
+                break;
+            case "EMAIL_ALREADY_EXISTS":
+                status = HttpStatus.CONFLICT;
+                break;
             default:
             	
                 status = HttpStatus.INTERNAL_SERVER_ERROR;

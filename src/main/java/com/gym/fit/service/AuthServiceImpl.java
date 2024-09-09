@@ -76,6 +76,7 @@ public class AuthServiceImpl implements AuthService {
 
 		} catch (BadCredentialsException e) {
 			// Return a structured JSON error response
+			System.out.println("in login error");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
 					Map.of("message", "Bad User Credentials", "code", "USER_NOT_FOUND")
 			);

@@ -26,7 +26,7 @@ public interface ExercisePerUserRepository extends JpaRepository<ExercisePerUser
     @Query("SELECT e FROM ExercisePerUser e WHERE FUNCTION('DATE', e.createdAt) = :date AND e.exerciseName = :exerciseName AND e.gymUser.id = :userId")
     List<ExercisePerUser> findByCreatedAtAndExerciseNameAndUserId(@Param("date") LocalDate date, @Param("exerciseName") String exerciseName, @Param("userId") Long userId);
 
-    @Query(value = "SELECT DISTINCT created_date FROM (SELECT DATE(created_at) as created_date FROM exercise_per_user WHERE exercise_name = :exerciseName AND user_id = :userId AND DATE(created_at) != CURRENT_DATE GROUP BY created_date ORDER BY created_date DESC) subquery LIMIT 2", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT created_date FROM (SELECT DATE(created_at) as created_date FROM exercise_per_user WHERE exercise_name = :exerciseName AND user_id = :userId AND DATE(created_at) != CURRENT_DATE GROUP BY created_date ORDER BY created_date DESC) subquery LIMIT 1", nativeQuery = true)
     List<java.sql.Date> findLastTwoDistinctDatesExcludingToday(@Param("exerciseName") String exerciseName, @Param("userId") Long userId);
     
     @Query("SELECT e FROM ExercisePerUser e JOIN FETCH e.exerciseSetRecords WHERE FUNCTION('DATE', e.createdAt) IN :dates AND e.exerciseName = :exerciseName AND e.gymUser.id = :userId ORDER BY e.createdAt DESC")

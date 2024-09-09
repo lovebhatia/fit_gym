@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.gym.fit.dto.GymUserDto;
 import com.gym.fit.entity.GymUser;
+import com.gym.fit.exception.CustomException;
 import com.gym.fit.repository.GymUserRepository;
 
 import lombok.AllArgsConstructor;
@@ -58,6 +59,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 	
 	public GymUser save(GymUserDto user) {
+		 if (gymUserRepository.existsByUsername(user.getUsername())) {
+		        throw new CustomException("Username already exists.", "USER_ALREADY_EXISTS");
+		    }
+
+		    // Check if the email already exists
+		    if (gymUserRepository.existsByEmail(user.getEmail())) {
+		        throw new CustomException("Email already exists.", "EMAIL_ALREADY_EXISTS");
+		    }
 		GymUser newUser = new GymUser();
 		newUser.setUsername(user.getUsername());
 		newUser.setEmail(user.getEmail());
