@@ -15,6 +15,7 @@ import com.gym.fit.dto.LoginDto;
 import com.gym.fit.dto.LoginGoogleDto;
 import com.gym.fit.dto.RefreshAccessTokenRequest;
 import com.gym.fit.entity.GymRoles;
+import com.gym.fit.entity.GymUser;
 import com.gym.fit.repository.GymRoleRepository;
 import com.gym.fit.securityConfig.CustomUserDetailsService;
 import com.gym.fit.service.AuthService;
@@ -50,29 +51,18 @@ public class AuthController {
 	
 	@PostMapping("/register")
 	public ResponseEntity<?> saveUser(@RequestBody GymUserDto user) throws Exception {
-		Set<GymRoles> strRoles = user.getGymRoles();
-		System.out.println(strRoles);
-		Set<GymRoles> setGymRoles = new HashSet<GymRoles>();
-		strRoles.forEach(role -> {
-			GymRoles gymRoles = gymRoleRepository.findByName(role.getName())
-					.orElseThrow(() -> new RuntimeException("Role not found"));
-			setGymRoles.add(gymRoles);
-		});
-		/*
-		if(strRoles == null) {
-			GymRoles gymUserRole = gymRoleRepository.findByName("ROLE_USER")
-					.orElseThrow(() -> new RuntimeException("Error: Role is not found"));
-			setGymRoles.add(gymUserRole);
-		} else {
-			strRoles.forEach(role -> {
-				GymRoles gymRoles = gymRoleRepository.findByName(role)
-						.orElseThrow(() -> new RuntimeException("Role not found"));
-				setGymRoles.add(gymRoles);
-			});
-		}
-		*/
-		//user.setRoles(setGymRoles);
-		user.setGymRoles(setGymRoles);	
+		System.out.println("In Registration");
+		GymRoles gymRoles = new GymRoles();
+		gymRoles.setName("ROLE_USER");
+		Set<GymRoles> gymRolesSet = new HashSet<>();
+		gymRolesSet.add(gymRoles);
+
+		GymUser gymUser = new GymUser();
+		gymUser.setEmail(user.getEmail());
+		gymUser.setUsername(user.getUsername());
+		gymUser.setPassword(user.getPassword());
+		gymUser.setConfirmPassword(user.getConfirmPassword());
+		gymUser.setGymRoles(gymRolesSet);	
 		return ResponseEntity.ok(customUserDetailsService.save(user));
 	}
 	
