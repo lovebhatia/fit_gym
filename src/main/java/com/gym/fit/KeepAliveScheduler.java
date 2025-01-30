@@ -6,9 +6,9 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public class KeepAliveScheduler {
-
+    /*
     private final RestTemplate restTemplate = new RestTemplate();
-    private static final String HEALTH_CHECK_URL = "https://midyear-courage-427209-f3.et.r.appspot.com/api/health";
+    private static final String HEALTH_CHECK_URL = "https://clear-region-438813-t6.el.r.appspot.com/api/health";
 
     @Scheduled(fixedRate = 120000) // 5 minutes in milliseconds
     public void keepAlive() {
@@ -20,4 +20,6 @@ public class KeepAliveScheduler {
             System.out.println("Error pinging health check endpoint: " + e.getMessage());
         }
     }
+*/
+
 }

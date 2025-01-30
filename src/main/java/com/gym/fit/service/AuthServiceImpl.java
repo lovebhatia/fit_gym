@@ -49,7 +49,13 @@ public class AuthServiceImpl implements AuthService {
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
 
+	public boolean existsByUsername(String username) {
+		return gymUserRepository.existsByUsername(username);
+	}
 
+	public boolean existsByEmail(String email) {
+		return gymUserRepository.existsByEmail(email);
+	}
 	@Override
 	public ResponseEntity<?> login(LoginDto loginDto) {
 		try {
@@ -128,6 +134,9 @@ public class AuthServiceImpl implements AuthService {
 	}
 	
 	public void createUser(LoginGoogleDto loginGoogleDto) {
+
+
+
 	    GymUser newUser = new GymUser();
 	    System.out.println(loginGoogleDto.getUsername() + "--" + loginGoogleDto.getEmail());
 	    newUser.setUsername(loginGoogleDto.getUsername());
@@ -147,7 +156,6 @@ public class AuthServiceImpl implements AuthService {
 	        setGymRoles.add(gymRoles);
 	    });
 	    newUser.setGymRoles(setGymRoles);
-
 	    gymUserRepository.save(newUser);
 	}
 

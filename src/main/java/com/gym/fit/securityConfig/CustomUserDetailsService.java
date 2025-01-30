@@ -1,10 +1,13 @@
 package com.gym.fit.securityConfig;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -32,7 +35,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private PasswordEncoder bcryptEncoder;
 	@Override
 	public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-		System.out.println("in username");
 		GymUser gymUser = gymUserRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail)
 				.orElseThrow(() -> new UsernameNotFoundException("User not exists by Username or email"));
 		Set<GrantedAuthority> authorities = gymUser.getGymRoles().stream()
@@ -45,7 +47,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
 	}
 	public UserDetails loadUserByUsernameGoogle(String usernameOrEmail) throws UsernameNotFoundException {
-		System.out.println("in username");
 		GymUser gymUser = gymUserRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail)
 				.orElseThrow(() -> new UsernameNotFoundException("User not exists by Username or email"));
 		Set<GrantedAuthority> authorities = gymUser.getGymRoles().stream()
@@ -58,15 +59,18 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
 	}
 	
-	public GymUser save(GymUserDto user) {
+	public ResponseEntity<?> save(GymUserDto user) {
 		 if (gymUserRepository.existsByUsername(user.getUsername())) {
-		        throw new CustomException("Username already exists.", "USER_ALREADY_EXISTS");
-		    }
+			 System.out.println("in exist");
+			 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+					 Map.of("message", "User Already Exists", "code", "USER_ALREADY_EXISTS")
+			 );		    }
 
 		    // Check if the email already exists
 		    if (gymUserRepository.existsByEmail(user.getEmail())) {
-		        throw new CustomException("Email already exists.", "EMAIL_ALREADY_EXISTS");
-		    }
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+						Map.of("message", "Email Already Exists", "code", "EMAIL_ALREADY_EXISTS")
+				);			    }
 		GymUser newUser = new GymUser();
 		newUser.setUsername(user.getUsername());
 		newUser.setEmail(user.getEmail());
@@ -74,6 +78,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setConfirmPassword(user.getConfirmPassword());
 		newUser.setGymRoles(user.getGymRoles());
-		return gymUserRepository.save(newUser);
+		return ResponseEntity.ok(newUser);
 	}
 }

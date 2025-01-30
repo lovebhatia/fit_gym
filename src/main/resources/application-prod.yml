@@ -18,8 +18,8 @@ spring:
   cloud:
     gcp:
       sql:
-        database-name: gym_fit
-        instance-connection-name: midyear-courage-427209-f3:asia-south2:gymfitdb
+        database-name: gymfitdb
+        instance-connection-name: clear-region-438813-t6:asia-south2:gymfitdb
       appengine:
         # This is optional and depends on your use case
         automatic-scaling:
@@ -29,7 +29,8 @@ spring:
           instances: 3
   datasource:
     password: Terminator@123
-    username: postgres
+    username: gymfitdb
+    driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
       minimum-idle: 5
@@ -45,7 +46,7 @@ spring:
     org.springframework.orm.jpa: DEBUG
     org.hibernate: DEBUG
 build:
-   version: 1
+  version: 1
 management:
   endpoints:
     web:
