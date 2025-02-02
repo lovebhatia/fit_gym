@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<String> handleCustomException(CustomException ex) {
+	@ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex) {
         HttpStatus status;
         switch (ex.getErrorCode()) {
             case "USER_NOT_FOUND":
@@ -26,16 +26,24 @@ public class GlobalExceptionHandler {
                 status = HttpStatus.CONFLICT;
                 break;
             default:
-            	
                 status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
-        return ResponseEntity.status(status).body(ex.getMessage());
+
+        // Construct the ErrorResponse object
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), ex.getErrorCode(), status.value());
+
+        return new ResponseEntity<>(errorResponse, status);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                             .body("An unexpected error occurred: " + ex.getMessage());
+    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+            "An unexpected error occurred: " + ex.getMessage(), 
+            "INTERNAL_SERVER_ERROR", 
+            HttpStatus.INTERNAL_SERVER_ERROR.value()
+        );
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
 

@@ -28,7 +28,6 @@ public interface WorkoutProgramRepository extends JpaRepository<WorkoutProgram, 
         Double getRating();
         String getIcon();
         int getSequence();
-        
     }
 
 }
