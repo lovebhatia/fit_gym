@@ -13,14 +13,16 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "workout_plan")
+@Table(name = "user_workout")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WorkoutPlanperUser {
+@Data
+public class UserWorkout {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
