@@ -13,8 +13,8 @@ import com.gym.fit.entity.Workout;
 @Repository
 public interface ExerciseRepository extends JpaRepository<Exercise, Long> {
 		List<Exercise> findByWorkouts(Workout workout);
-		@Query("SELECT e FROM Exercise e JOIN WorkoutExercise we ON e.id = we.exercise.id " +
-		           "JOIN WorkoutProgram w ON we.workoutProgram.id = w.id " +
-		           "WHERE w.workoutName IN :workoutNames")
+		@Query(value = "SELECT e FROM Exercise e JOIN workout_exercises we ON e.id = we.exercise.id " +
+		           "JOIN workout w ON w.id = we.workout_id " +
+		           "WHERE w.workout IN :workoutNames", nativeQuery = true)
 		    List<Exercise> findExercisesByWorkoutNames(@Param("workoutNames") List<String> workoutNames);
 }

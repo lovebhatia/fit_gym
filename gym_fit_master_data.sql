@@ -1,16 +1,14 @@
 INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 1, 'chest_home.jpg', '1', 'Chest');
 INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 2, 'back_home.jpg', '2', 'Back');
-INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 3, 'biceps_home.jpg', '3', 'Biceps');
 INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 4, 'shoulder_home.jpg', '4', 'Shoulder');
-INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 5, 'tricep_home.jpg', '5', 'Triceps');
 INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 6, 'abs_home.jpg', '6', 'Abs');
 INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 7, 'legs_home.jpg', '7', 'Legs');
 INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 8, 'hamstring_home.jpg', '8', 'Hamstring');
 INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 9, 'glutes_home.jpg', '9', 'Glutes');
+INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 5, 'tricep_home.jpg', '5', 'Triceps');
+INSERT INTO public.workout (created_at, id, image_name, show_sequence, workout) VALUES('2024-04-04 01:32:09.808', 3, 'biceps_home.jpg', '3', 'Biceps');
 
-
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO public.exercise (created_at, id, claories_burned, exercise_description, exercise_duration, exercise_name, gif_name, set_range, show_sequence, image_name) VALUES('2025-01-30 11:32:58.446', 1, NULL, NULL, NULL, 'Bench Press', 'BenchPress.gif', '3-5', NULL, NULL);
 INSERT INTO public.exercise (created_at, id, claories_burned, exercise_description, exercise_duration, exercise_name, gif_name, set_range, show_sequence, image_name) VALUES('2025-01-30 11:32:58.446', 2, NULL, NULL, NULL, 'Cable Low Fly', 'CableLowFly.gif', '3-5', NULL, NULL);
@@ -107,7 +105,17 @@ INSERT INTO public.exercise (created_at, id, claories_burned, exercise_descripti
 INSERT INTO public.exercise (created_at, id, claories_burned, exercise_description, exercise_duration, exercise_name, gif_name, set_range, show_sequence, image_name) VALUES('2025-01-30 12:02:27.015', 98, NULL, NULL, NULL, 'Lever Preacher Curl', '', '3-5', NULL, NULL);
 INSERT INTO public.exercise (created_at, id, claories_burned, exercise_description, exercise_duration, exercise_name, gif_name, set_range, show_sequence, image_name) VALUES('2025-01-30 12:02:27.015', 99, NULL, NULL, NULL, 'Preacher Curl', '', '3-5', NULL, NULL);
 
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO public.workout_program (rating, "sequence", created_at, id, days_per_week, description, duration_range, icon, image_name, "level", main_goal, published_by, workout_program_name) VALUES(2.5, 1, '2024-04-04 01:24:22.666', 1, '3-5', '', '3-4 Months', 'Icons.accessibility', '', 'Intermediate', 'Muscle Building', 'Gym Fit', 'Full Body');
+INSERT INTO public.workout_program (rating, "sequence", created_at, id, days_per_week, description, duration_range, icon, image_name, "level", main_goal, published_by, workout_program_name) VALUES(2.5, 1, '2024-04-04 01:24:22.666', 2, '4', '', '3-4 Months', 'Icons.swap_vert', '', 'Intermediate', 'Muscle Building', 'Gym Fit', 'Upper/Lower Split');
+INSERT INTO public.workout_program (rating, "sequence", created_at, id, days_per_week, description, duration_range, icon, image_name, "level", main_goal, published_by, workout_program_name) VALUES(2.5, 1, '2024-04-04 01:24:22.666', 3, '3-5', '', '3-4 Months', 'Icons.filter_frames', '', 'Intermediate', 'Muscle Building', 'Gym Fit', 'Body Part Split');
+INSERT INTO public.workout_program (rating, "sequence", created_at, id, days_per_week, description, duration_range, icon, image_name, "level", main_goal, published_by, workout_program_name) VALUES(2.5, 1, '2024-04-04 01:24:22.666', 4, '3-5', '', '3-4 Months', 'Icons.directions_run', '', 'Intermediate', 'Muscle Building', 'Gym Fit', 'Cardiovascular');
+INSERT INTO public.workout_program (rating, "sequence", created_at, id, days_per_week, description, duration_range, icon, image_name, "level", main_goal, published_by, workout_program_name) VALUES(2.5, 1, '2024-04-04 01:24:22.666', 5, '3-5', '', '3-4 Months', 'Icons.timer', '', 'Intermediate', 'Muscle Building', 'Gym Fit', 'High-Intensity Interval Training (HIIT)');
+INSERT INTO public.workout_program (rating, "sequence", created_at, id, days_per_week, description, duration_range, icon, image_name, "level", main_goal, published_by, workout_program_name) VALUES(2.5, 1, '2024-04-04 01:24:22.666', 6, '3-5', '', '3-4 Months', 'Icons.self_improvement', '', 'Intermediate', 'Muscle Building', 'Gym Fit', 'Flexibility and Mobility');
+INSERT INTO public.workout_program (rating, "sequence", created_at, id, days_per_week, description, duration_range, icon, image_name, "level", main_goal, published_by, workout_program_name) VALUES(2.5, 1, '2024-04-04 01:24:22.666', 7, '3', '', '3-4 Months', 'Icons.fitness_center', '', 'Intermediate', 'Muscle Building', 'Gym Fit', 'Push/Pull/Legs');
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 INSERT INTO public.workout_exercises (exercise_id, workout_id) VALUES(1, 1);
@@ -204,5 +212,3 @@ INSERT INTO public.workout_exercises (exercise_id, workout_id) VALUES(33, 2);
 INSERT INTO public.workout_exercises (exercise_id, workout_id) VALUES(35, 2);
 INSERT INTO public.workout_exercises (exercise_id, workout_id) VALUES(36, 2);
 INSERT INTO public.workout_exercises (exercise_id, workout_id) VALUES(37, 2);
-
----------------------------------------------------------------------------------------------
