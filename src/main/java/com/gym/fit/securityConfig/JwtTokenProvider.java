@@ -116,7 +116,6 @@ public class JwtTokenProvider {
 	}
 	
 	public Boolean validateToken(String token) {
-		System.out.println("in validate");
 		try {
 		Jwts.parser()
 			.verifyWith((SecretKey) key())

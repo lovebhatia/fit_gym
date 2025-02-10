@@ -32,7 +32,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	private PasswordEncoder bcryptEncoder;
 	@Override
 	public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
-		System.out.println("in username");
 		GymUser gymUser = gymUserRepository.findByUsernameOrEmail(usernameOrEmail,usernameOrEmail)
 				.orElseThrow(() -> new UsernameNotFoundException("User not exists by Username or email"));
 		Set<GrantedAuthority> authorities = gymUser.getGymRoles().stream()
