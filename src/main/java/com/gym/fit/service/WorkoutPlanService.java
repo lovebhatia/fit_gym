@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,8 @@ import com.gym.fit.repository.WorkoutProgramRepository;
 
 @Service
 public class WorkoutPlanService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(WorkoutPlanService.class);
 	
 	@Autowired
 	private UserWorkoutRepository userWorkoutRepository;
@@ -60,7 +65,7 @@ public class WorkoutPlanService {
 		for(int i = 0; i < 7; i++) {
 			List<Exercise> selectedExercises = selectedExercisesForDay(userWorkout, i);
 			LocalDate workoutDate = startDate.plusDays(i);
-			System.out.println("Selected Exercises ---" +selectedExercises.size());
+			logger.info("selected Exercise size --> " + selectedExercises.size());
 			System.out.println("Workout date before saving UserWorkout Exercise" + workoutDate + " ----- "+i);
 			for(Exercise exercise : selectedExercises) {
 				System.out.println("Workout date in loop- "+workoutDate);
