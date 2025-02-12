@@ -1,6 +1,7 @@
 package com.gym.fit.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -45,31 +46,30 @@ public class WorkoutPlanService {
 		GymUser gymUser = gymUserRepository.findById(userId)
 				.orElseThrow(() -> new RuntimeException("Gym User not Found"));
 		
-		//save user Workout Program
 		LocalDate startDate = LocalDate.now();
 		UserWorkout userWorkout = new UserWorkout();
 		userWorkout.setGymUser(gymUser);
 		userWorkout.setWorkoutProgram(workoutProgram);
 		userWorkout.setStartDate(startDate);
 		userWorkout = userWorkoutRepository.save(userWorkout);
-		
-		//Generate exercises for the next 7 days
-		System.out.println("Saving user Workout");
 		distributeExercise(userWorkout, startDate, days);
 		return ResponseEntity.ok("Workout plan generated successfully");
 	}
 	
 	private ResponseEntity<?> distributeExercise(UserWorkout userWorkout, LocalDate startDate, int days) {
-		System.out.println("in  distribute exercise");
-		for(int i = 0; i < days; i++) {
-			LocalDate workoutDate = startDate.plusDays(i);
+		for(int i = 0; i < 7; i++) {
 			List<Exercise> selectedExercises = selectedExercisesForDay(userWorkout, i);
-			System.out.println("in  distribute exercise -- 1");
+			LocalDate workoutDate = startDate.plusDays(i);
+			System.out.println("Selected Exercises ---" +selectedExercises.size());
+			System.out.println("Workout date before saving UserWorkout Exercise" + workoutDate + " ----- "+i);
 			for(Exercise exercise : selectedExercises) {
+				System.out.println("Workout date in loop- "+workoutDate);
 				UserWorkoutExercise userWorkoutExercise = new UserWorkoutExercise();
 				userWorkoutExercise.setUserWorkout(userWorkout);
 				userWorkoutExercise.setExercise(exercise);
 				userWorkoutExercise.setWorkoutDate(workoutDate);
+				userWorkoutExercise.setExerciseName(exercise.getExerciseName());
+				userWorkoutExercise.setWorkoutName(exercise.getWorkoutName());
 				userWorkoutExerciseRepository.save(userWorkoutExercise);
 			}
 		}
@@ -77,46 +77,41 @@ public class WorkoutPlanService {
 	}
 	
 	private List<Exercise> selectedExercisesForDay(UserWorkout userWorkout, int day) {
-		System.out.println(userWorkout.getWorkoutProgram() .getWorkoutProgramName());
 		if(userWorkout.getWorkoutProgram() .getWorkoutProgramName().equals("Upper/Lower Split")) {
-			System.out.println("in  distribute exercise -- 2");
 			List<Exercise> generatedExercises = generateUpperLowerSplitExercises(day);
-			List<Exercise> upperLowerSplitExercises =  getRandomExercise(generatedExercises, 8);
+			List<Exercise> upperLowerSplitExercises =  getRandomExercise(generatedExercises, 15);
 			return upperLowerSplitExercises;
 		}
 		return null;
 	}
 	
-	private List<Exercise> getRandomExercise(List<Exercise> exercises, int count) {
-		Collections.shuffle(exercises);
-		return exercises.subList(0, Math.min(count, exercises.size()));
-	}
-	
-	
 	public List<Exercise> generateUpperLowerSplitExercises(int day) {
 		List<String> upperLowerSplit = null;
-		List<Exercise> exercises = null;
+		List<Exercise> exercises = new ArrayList<Exercise>();
 		try{
 			if(day % 2 == 0) {
 				System.out.println("in  distribute exercise -- 3");
-				upperLowerSplit = //exerciseRepository.findExercisesByWorkoutNames(
-					Arrays.asList("Chest", "Back", "Biceps", "Triceps", "Shoulders"); 
+				upperLowerSplit = Arrays.asList("Chest", "Back", "Biceps", "Triceps", "Shoulder"); 
 				for(String group : upperLowerSplit) {
-					exercises = exerciseRepository.findExercisesByWorkoutNames(Collections.singletonList(group));
-					exercises.addAll(getRandomExercise(exercises,2 ));
+					List<Exercise> groupExercises = exerciseRepository.findExercisesByWorkoutNames(Collections.singletonList(group));
+					exercises.addAll(getRandomExercise(groupExercises,3));
 				}
 			} else {
 				System.out.println("in  distribute exercise -- 4");
-				upperLowerSplit = //exerciseRepository.findExercisesByWorkoutNames(
-					Arrays.asList("Legs", "Hamstring", "Glutes");
+				upperLowerSplit = Arrays.asList("Legs", "Hamstring", "Glutes");
 				for(String group : upperLowerSplit) {
-					exercises = exerciseRepository.findExercisesByWorkoutNames(Collections.singletonList(group));
-					exercises.addAll(getRandomExercise(exercises,2 ));
+					List<Exercise> groupExercises = exerciseRepository.findExercisesByWorkoutNames(Collections.singletonList(group));
+					exercises.addAll(getRandomExercise(groupExercises,3));
 				}
 			}
 		}catch(Exception e) {
 			System.out.println("Exception in generateUpperLowerSplit :" +e.toString());
 		}
 		return exercises;
+	}
+	
+	private List<Exercise> getRandomExercise(List<Exercise> exercises, int count) {
+		Collections.shuffle(exercises);
+		return exercises.subList(0, Math.min(count, exercises.size()));
 	}
 }

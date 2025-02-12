@@ -37,5 +37,8 @@ public class UserWorkoutExercise {
 	
 	@Column(nullable = false)
 	private LocalDate workoutDate;
+	
+	private String exerciseName;
+	private String workoutName;
 
 }
