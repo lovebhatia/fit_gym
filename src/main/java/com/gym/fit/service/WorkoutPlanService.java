@@ -27,7 +27,7 @@ import com.gym.fit.repository.WorkoutProgramRepository;
 @Service
 public class WorkoutPlanService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(WorkoutPlanService.class);
+	//private static final Logger logger = LoggerFactory.getLogger(WorkoutPlanService.class);
 	
 	@Autowired
 	private UserWorkoutRepository userWorkoutRepository;
@@ -65,7 +65,7 @@ public class WorkoutPlanService {
 		for(int i = 0; i < 7; i++) {
 			List<Exercise> selectedExercises = selectedExercisesForDay(userWorkout, i);
 			LocalDate workoutDate = startDate.plusDays(i);
-			logger.info("selected Exercise size --> " + selectedExercises.size());
+			//logger.info("selected Exercise size --> " + selectedExercises.size());
 			System.out.println("Workout date before saving UserWorkout Exercise" + workoutDate + " ----- "+i);
 			for(Exercise exercise : selectedExercises) {
 				System.out.println("Workout date in loop- "+workoutDate);
