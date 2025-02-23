@@ -78,6 +78,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setConfirmPassword(user.getConfirmPassword());
 		newUser.setGymRoles(user.getGymRoles());
-		return ResponseEntity.ok(newUser);
+		return ResponseEntity.ok(gymUserRepository.save(newUser));
 	}
 }

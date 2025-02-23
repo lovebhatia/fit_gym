@@ -19,7 +19,7 @@ spring:
     gcp:
       sql:
         database-name: gymfitdb
-        instance-connection-name: clear-region-438813-t6:asia-south2:gymfitdb
+        instance-connection-name: gymfit-451613:asia-south2:gymfitdb
       appengine:
         # This is optional and depends on your use case
         automatic-scaling:
@@ -28,7 +28,7 @@ spring:
         manual-scaling:
           instances: 3
   datasource:
-    password: Terminator@123
+    password: gymfitdb
     username: gymfitdb
     driver-class-name: org.postgresql.Driver
     hikari:
