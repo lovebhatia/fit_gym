@@ -18,10 +18,13 @@ public class UserWorkout {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private int dayNumber;
     private String workouttype;
-
+    @Column(nullable = false)
+    private LocalDate startDate;
+    private LocalDate endDate;   
+    private LocalDate lastGeneratedWorkoutDate;
+    
     @ManyToOne
     @JoinColumn(name = "workout_id", nullable = false)
     private WorkoutProgram workoutProgram;
@@ -29,10 +32,5 @@ public class UserWorkout {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private GymUser gymUser;
-
-    @Column(nullable = false)
-    private LocalDate startDate;
-
-    private LocalDate endDate;
 
 }

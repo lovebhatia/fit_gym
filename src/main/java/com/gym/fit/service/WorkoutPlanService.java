@@ -2,6 +2,7 @@ package com.gym.fit.service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -139,5 +140,30 @@ public class WorkoutPlanService {
     private List<Exercise> getRandomExercise(List<Exercise> exercises, int count) {
         Collections.shuffle(exercises);
         return exercises.subList(0, Math.min(count, exercises.size()));
+    }
+    
+    public void generateNextWorkoutDays(Long userWorkoutId) {
+        UserWorkout userWorkout = userWorkoutRepository.findById(userWorkoutId)
+                .orElseThrow(() -> new RuntimeException("User Workout Not Found"));
+
+        Set<DayOfWeek> restDays = new HashSet<>();
+        restDays.add(DayOfWeek.SATURDAY);
+        restDays.add(DayOfWeek.SUNDAY);
+
+        LocalDate today = LocalDate.now();
+        LocalDate lastGeneratedDate = userWorkout.getLastGeneratedWorkoutDate();
+        LocalDate targetEndDate = today.plusDays(6); // Ensure 7 days of workouts
+
+        // Generate only if we don't have 7 days of future workouts
+        if (lastGeneratedDate.isBefore(targetEndDate)) {
+            LocalDate newStartDate = lastGeneratedDate.plusDays(1);
+            int daysToGenerate = (int) ChronoUnit.DAYS.between(newStartDate, targetEndDate) + 1;
+
+            distributeExercise(userWorkout, newStartDate, daysToGenerate, restDays);
+
+            // Update last generated workout date
+            userWorkout.setLastGeneratedWorkoutDate(targetEndDate);
+            userWorkoutRepository.save(userWorkout);
+        }
     }
 }
