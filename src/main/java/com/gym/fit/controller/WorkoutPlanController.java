@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gym.fit.entity.Exercise;
 import com.gym.fit.entity.UserWorkoutExercise;
 import com.gym.fit.repository.UserWorkoutExerciseRepository;
 import com.gym.fit.service.WorkoutPlanService;
@@ -43,14 +44,16 @@ public class WorkoutPlanController {
     }
     
     @GetMapping("/user/{userId}/workout/{workoutProgramId}/exercises/{date}")
-    public ResponseEntity<List<UserWorkoutExercise>> getExercisesForUserWorkoutByDate(
+    public ResponseEntity<List<Exercise>> getExercisesForUserWorkoutByDate(
             @PathVariable("userId") Long userId,  // Ensure path variable names match
             @PathVariable("workoutProgramId") Long workoutProgramId,
             @PathVariable("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
     	
     	System.out.println(date+"--"+ userId + "---"+workoutProgramId);
-    	List<UserWorkoutExercise> exercises = userWorkoutExerciseRepository
-                .findByUserWorkout_GymUser_IdAndUserWorkout_WorkoutProgram_IdAndWorkoutDate(userId, workoutProgramId, date);
+    	//List<UserWorkoutExercise> exercises = userWorkoutExerciseRepository
+              //  .findByUserWorkout_GymUser_IdAndUserWorkout_WorkoutProgram_IdAndWorkoutDate(userId, workoutProgramId, date);
+    	List<Exercise> exercises = userWorkoutExerciseRepository
+                .findExercisesByUserWorkoutAndDate(userId, workoutProgramId, date);
 
         if (exercises.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exercises);
