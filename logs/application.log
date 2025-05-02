@@ -1,0 +1,7 @@
+2025-02-13T08:41:06.005+05:30  WARN 22436 --- [gymfitnew] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=13h21m53s781ms984µs300ns).
+2025-02-13T13:10:00.717+05:30  WARN 22436 --- [gymfitnew] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=11m20s758ms157µs).
+2025-02-13T13:16:24.765+05:30  WARN 22436 --- [gymfitnew] [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=6m24s70ms924µs600ns).
+2025-02-13T14:08:49.549+05:30  INFO 22436 --- [gymfitnew] [RMI TCP Connection(559)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2025-02-13T14:08:50.131+05:30  INFO 22436 --- [gymfitnew] [RMI TCP Connection(559)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-13T14:08:50.232+05:30  INFO 22436 --- [gymfitnew] [RMI TCP Connection(559)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-13T14:08:50.247+05:30  INFO 22436 --- [gymfitnew] [RMI TCP Connection(559)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
